@@ -1,11 +1,6 @@
 from Calculation.Calc import *
-from GUI.BasicTkGUI import *
+from GUI.BasicThemedTkGUI import *
 from GUI.MenuBarGUI import *
-
-
-# this method is used to give other classes a gui to build on
-def get_gui():
-    return gui
 
 
 if __name__ == "__main__":
@@ -13,15 +8,19 @@ if __name__ == "__main__":
 
     ################ WINDOW ################
     # initialize
-    gui = GUI("Experimental AI ! kArIn", "800x600", True, "#1f073b", "resources/Icon/slightlyCreepy.png", True)
+    gui = GUI("Experimental AI ! KAREN", "800x600", True, "#1f073b", "resources/Icon/slightlyCreepy.png", True)
 
     # build the surface (add widgets)
     gui.display_date(2, 0, 20)
     gui.display_time(2, 1, 20)
+    gui.add_frame(7,7,"Frame")
+    gui.add_label_frame(6,6,"LabelFrame")
+    gui.add_radio_button("Hello",None ,None, None, 2, 2)
+    gui.add_entry(10,3,5,5)
 
     menu_bar = MenuGUI(gui)
-    menu_bar.create_menu_item("Change Style", "Null", lambda: menu_bar.change_theme(gui))
-    menu_bar.create_menu_item("Exit", "Goodbye!", gui.quit)
+    menu_bar.add_themes()
+
 
 
 

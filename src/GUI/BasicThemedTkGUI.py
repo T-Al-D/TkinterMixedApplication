@@ -3,12 +3,13 @@ from tkinter import ttk
 from tkinter.constants import *
 from PIL.ImageTk import PhotoImage
 import tkinter as tk
+from ttkthemes import *
 
 # initialization with tk.Tk__init__(self) all Methods are being inherited
-# this class contains all methods needed to create Objects on the GUI directly!
+# this class contains all methods needed to create Objects on the GUI DIRECTLY!
 
 
-class GUI(tk.Tk):
+class GUI(ThemedTk):
     # default variables/parameter
     black = "#000000"
     grey = "#8a8a8a"
@@ -18,23 +19,31 @@ class GUI(tk.Tk):
 
     # the class itself becomes the ROOT
     def __init__(self, title, size="360x360", resizable=True, bg_color=None, icon_path=None, icon_is_used=False):
-        tk.Tk.__init__(self)                                             # instead super()...#
-        self.styles = ttk.Style()
+        super().__init__()
+        self.set_theme("default")
         self.drop_down_menu_option = None
         self.entry = None
         self.title(title)                                                # window title
         self.geometry(size)                                              # window size
         self.resizable(width=resizable, height=resizable)                # resizable window
         self.config(bg=bg_color)
+
         if icon_is_used:
             self.iconphoto(icon_is_used, tk.PhotoImage(file=icon_path))  # Icon from .png
 
 
-    def add_container(self, bg_color):
-        container = ttk.Frame(self)
-        container.pack(side="top")
-        container.grid_rowconfigure(0, weight=2)
-        container.grid_columnconfigure(0, weight=2)
+    # a frame can contain other items and objects, but needs functions from other class
+    def add_frame(self, row, column, text=None, b_width=5,  side="top", pad_x=0, pad_y=0, stick="ew"):
+        frame = ttk.Frame(self, borderwidth=b_width)
+        # (text=text, side=side)
+        frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
+        return frame
+
+    def add_label_frame(self, row, column, text=None, b_width=5, pad_x=0, pad_y=0, stick="ew"):
+        label_frame = ttk.LabelFrame(self, borderwidth=b_width)
+        # text=text, side="top",
+        label_frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
+        return label_frame
 
     def add_label(self, text, text_var, c_span, row, column, bg=grey, fg=black, pad_x=0, pad_y=0, stick="ew",
                   font=default_font):
@@ -42,6 +51,7 @@ class GUI(tk.Tk):
         label.grid(row=row, column=column, columnspan=c_span, padx=pad_x, pady=pad_y, sticky=stick)
         return label
 
+    # a string Input which has to handled carefully
     def add_entry(self, width, c_span, row, column, cur=default_cur, bg=white, fg=black, pad_x=0, pad_y=0,
                   stick="ew", font=default_font):
         self.entry = ttk.Entry(self, width=width, foreground=fg, background=bg, cursor=cur, font=font)
@@ -63,7 +73,7 @@ class GUI(tk.Tk):
         check_box.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         return check_box
 
-    # *args for multiple arguments that are written after each other (not in List!)
+    # *args for multiple arguments that are written after each other (NOT IN LIST!)
     def add_drop_menu(self, var, row, column, pad_x=0, pad_y=0, stick="ew", *args):
         option_menu = ttk.OptionMenu(self, var, *args, command=self.add_drop_menu_label)
         option_menu.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
