@@ -1,12 +1,15 @@
+import tkinter as tk
 from datetime import datetime
 from tkinter import ttk
 from tkinter.constants import *
+
 from PIL.ImageTk import PhotoImage
-import tkinter as tk
 from ttkthemes import *
+
 
 # initialization with tk.Tk__init__(self) all Methods are being inherited
 # this class contains all methods needed to create Objects on the GUI DIRECTLY!
+# during the methods an object is usually first created and then pasted on GUI with grid
 
 
 class GUI(ThemedTk):
@@ -23,25 +26,22 @@ class GUI(ThemedTk):
         self.set_theme("default")
         self.drop_down_menu_option = None
         self.entry = None
-        self.title(title)                                                # window title
-        self.geometry(size)                                              # window size
-        self.resizable(width=resizable, height=resizable)                # resizable window
+        self.title(title)  # window title
+        self.geometry(size)  # window size
+        self.resizable(width=resizable, height=resizable)  # resizable window
         self.config(bg=bg_color)
 
         if icon_is_used:
             self.iconphoto(icon_is_used, tk.PhotoImage(file=icon_path))  # Icon from .png
 
-
     # a frame can contain other items and objects, but needs functions from other class
-    def add_frame(self, row, column, text=None, b_width=5,  side="top", pad_x=0, pad_y=0, stick="ew"):
+    def add_frame(self, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
         frame = ttk.Frame(self, borderwidth=b_width)
-        # (text=text, side=side)
         frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         return frame
 
-    def add_label_frame(self, row, column, text=None, b_width=5, pad_x=0, pad_y=0, stick="ew"):
-        label_frame = ttk.LabelFrame(self, borderwidth=b_width)
-        # text=text, side="top",
+    def add_label_frame(self, text, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
+        label_frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)
         label_frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         return label_frame
 
