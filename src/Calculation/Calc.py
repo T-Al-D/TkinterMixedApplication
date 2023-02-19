@@ -1,3 +1,5 @@
+from __future__ import absolute_import,division,print_function,unicode_literals
+
 # import tensorflow as tf  # vector calculation
 import numpy as np  # data representation
 import pandas as pd  # data analytics
