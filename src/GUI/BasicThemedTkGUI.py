@@ -34,6 +34,19 @@ class GUI(ThemedTk):
         if icon_is_used:
             self.iconphoto(icon_is_used, tk.PhotoImage(file=icon_path))  # Icon from .png
 
+    # with this method switching to specific frame possible
+    # frame.frame is necessary to access the tk-attributes!
+    @staticmethod
+    def switch_frame(frame, all_frames):
+        if frame in all_frames:
+            frame_index = all_frames.index(frame)
+            all_frames.pop(frame_index)
+        # "hide" all the other frames
+        for fr in all_frames:
+            fr.frame.forget()
+        # show a specific frame
+        frame.frame.tkraise()
+
     # a frame can contain other items and objects, but needs functions from other class
     def add_frame(self, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
         frame = ttk.Frame(self, borderwidth=b_width)
@@ -43,15 +56,6 @@ class GUI(ThemedTk):
     def add_switch_frame(self, text, b_width=5):
         frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)
         return frame
-
-    # with this method switching to specific frame possible
-    @staticmethod
-    def switch_frame(frame, all_frames):
-        # all possible sub-frames (frames that can be switched)
-        # frame.tkraise()
-        all_frames.pop(all_frames.index(frame))
-        # for frame in all_frames:
-        #     frame.forget()
 
     def add_label_frame(self, text, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
         label_frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)

@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
     # frames in the main GUI
     # datetime
-    datetime_label_in_frame = Frame(gui.add_label_frame("DateTime", 1, 0))
+    datetime_label_in_frame = Frame(gui.add_label_frame("DateTime", 1, 0, 5, 2, 2))
     time_label_in_frame = Frame.display_time_on_frame(datetime_label_in_frame, 1, 0, 0)
     date_label_in_frame = Frame.display_date_on_frame(datetime_label_in_frame, 1, 1, 0)
 
@@ -29,9 +29,11 @@ if __name__ == "__main__":
 
 
     # "navigation" with buttons
-    nav_button_frame = Frame(gui.add_label_frame("Navigation", 2, 0))
+    nav_button_frame = Frame(gui.add_label_frame("Navigation", 2, 0, 5, 2, 2))
+    neutral_button = Frame.add_button_on_frame(nav_button_frame, "Neutral",
+                                               lambda: GUI.switch_frame(neutral_switch_frame, all_switch_frames), 0, 0)
     chatbot_button = Frame.add_button_on_frame(nav_button_frame, "Mini-Chatbot",
-                                               GUI.switch_frame(chatbot_switch_frame, all_switch_frames), 0, 0)
+                                               lambda: GUI.switch_frame(chatbot_switch_frame, all_switch_frames), 1, 0)
 
 
     # add items to menubar
