@@ -9,7 +9,6 @@ from PIL.ImageTk import PhotoImage
 # if frames are used on the GUI, these methods create objects and paste them on the frame instead of the GUI directly
 # therefore we can create more Order and structure in a GUI-Project
 
-
 class Frame:
     # default variables/parameter
     black = "#000000"
@@ -23,6 +22,13 @@ class Frame:
         self.add_drop_menu_label = None
         self.entry = None
         self.frame = frame
+
+    # add a frame on another (already existing frame)
+    @staticmethod
+    def add_label_frame_on_frame(frame, text, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
+        frame = ttk.LabelFrame(frame, borderwidth=b_width, text=text)
+        frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
+        return frame
 
     def add_label_on_frame(self, text, text_var, c_span, row, column, bg=grey, fg=black, pad_x=0, pad_y=0,
                            stick="ew", font=default_font):

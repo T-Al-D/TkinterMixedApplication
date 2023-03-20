@@ -40,6 +40,19 @@ class GUI(ThemedTk):
         frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         return frame
 
+    def add_switch_frame(self, text, b_width=5):
+        frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)
+        return frame
+
+    # with this method switching to specific frame possible
+    @staticmethod
+    def switch_frame(frame, all_frames):
+        # all possible sub-frames (frames that can be switched)
+        # frame.tkraise()
+        all_frames.pop(all_frames.index(frame))
+        # for frame in all_frames:
+        #     frame.forget()
+
     def add_label_frame(self, text, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
         label_frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)
         label_frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
