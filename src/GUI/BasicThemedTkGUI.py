@@ -30,6 +30,7 @@ class GUI(ThemedTk):
         self.geometry(size)  # window size
         self.resizable(width=resizable, height=resizable)  # resizable window
         self.config(bg=bg_color)
+        self.set_theme("alt")
 
         if icon_is_used:
             self.iconphoto(icon_is_used, tk.PhotoImage(file=icon_path))  # Icon from .png

@@ -2,6 +2,7 @@
 from GUI.BasicThemedTkGUI import *
 from GUI.MenuBarGUI import *
 from src.GUI.FrameGUI import *
+from src.SubFrames.Notepad import *
 
 if __name__ == "__main__":
     ################ WINDOW ################
@@ -14,10 +15,11 @@ if __name__ == "__main__":
     time_label_in_frame = Frame.display_time_on_frame(datetime_label_in_frame, 1, 0, 0)
     date_label_in_frame = Frame.display_date_on_frame(datetime_label_in_frame, 1, 1, 0)
 
+    notepad_frame = Frame(gui.add_label_frame("Notepad", 3, 0, 10, 2, 2))
+    Notepad(notepad_frame)
+
 
     # switched frames (through buttons)
-
-
     chatbot_switch_frame = Frame(gui.add_label_frame("Mini-ChatBot", 1, 2, 8, 4, 4, "nsew"))
     chatbot_label = Frame.add_label_on_frame(chatbot_switch_frame, "Chatbot", None, 1, 0, 0)
 
