@@ -22,5 +22,5 @@ class MenuGUI:
         themes_menu = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Change Themes", menu=themes_menu)
         for theme in sorted(self.gui.get_themes()):
-            themes_menu.add_command(label=theme, command=lambda name=theme: self.gui.set_theme(theme_name=name))
+            themes_menu.add_radiobutton(label=theme, command=lambda name=theme: self.gui.set_theme(theme_name=name))
         return themes_menu

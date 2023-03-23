@@ -21,7 +21,7 @@ class GUI(ThemedTk):
     default_cur = "left_ptr"
 
     # the class itself becomes the ROOT
-    def __init__(self, title, size="360x360", resizable=True, bg_color=None, icon_path=None, icon_is_used=False):
+    def __init__(self, title, size="640x360", resizable=True, bg_color=None, icon_path=None, icon_is_used=False):
         super().__init__()
         self.set_theme("default")
         self.drop_down_menu_option = None
@@ -30,12 +30,13 @@ class GUI(ThemedTk):
         self.geometry(size)  # window size
         self.resizable(width=resizable, height=resizable)  # resizable window
         self.config(bg=bg_color)
-        self.set_theme("alt")
+        self.set_theme("blue")
 
         if icon_is_used:
             self.iconphoto(icon_is_used, tk.PhotoImage(file=icon_path))  # Icon from .png
 
-    # with this method switching to specific frame possible
+    # with this method switching to specific frame possible, all_frames contains list of frames!
+    # frame is the frame you want to switch to by clicking a button
     # frame.frame is necessary to access the tk-attributes!
     @staticmethod
     def switch_frame(frame, all_frames):
@@ -49,18 +50,15 @@ class GUI(ThemedTk):
         frame.frame.tkraise()
 
     # a frame can contain other items and objects, but needs functions from other class
-    def add_frame(self, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
+    def add_frame(self, r_span, c_span, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
         frame = ttk.Frame(self, borderwidth=b_width)
-        frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
+        frame.grid(rowspan=r_span, columnspan=c_span, row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         return frame
 
-    def add_switch_frame(self, text, b_width=5):
-        frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)
-        return frame
-
-    def add_label_frame(self, text, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
+    def add_label_frame(self, text, r_span, c_span, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
         label_frame = ttk.LabelFrame(self, borderwidth=b_width, text=text)
-        label_frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
+        label_frame.grid(rowspan=r_span, columnspan=c_span, row=row, column=column, padx=pad_x, pady=pad_y,
+                         sticky=stick)
         return label_frame
 
     def add_label(self, text, text_var, c_span, row, column, bg=grey, fg=black, pad_x=0, pad_y=0, stick="ew",
@@ -103,22 +101,24 @@ class GUI(ThemedTk):
 
     # scrollbar is created and a listbox is bound in it
     def add_scroll_list(self, width, row_span, c_span, row, column, cur=default_cur, pad_x=0, pad_y=0, stick="ew"):
+        listbox = tk.Listbox(self, width=width, selectmode=SINGLE)
+        listbox.grid(rowspan=row_span, columnspan=c_span, row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         scrollbar = ttk.Scrollbar(self, orient=VERTICAL, cursor=cur)
         scrollbar.grid(rowspan=row_span, columnspan=c_span, row=row, column=column + 1, padx=0, pady=pad_y, sticky="ns")
-        listbox = tk.Listbox(self, width=width, selectmode=SINGLE, yscrollcommand=scrollbar.set)
-        listbox.grid(rowspan=row_span, columnspan=c_span, row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         scrollbar.config(command=listbox.yview)
+        listbox.config(yscrollcommand=scrollbar.set)
         return listbox
 
     # scrollbar is created and a textbox is bound in it
     def add_text_box(self, width, height, row_span, col_span, row, column, cur=default_cur, pad_x=0, pad_y=0,
                      stick="ew"):
+        textbox = tk.Text(self, width=width, height=height)
+        textbox.grid(rowspan=row_span, columnspan=col_span, row=row, column=column, padx=pad_x, pady=pad_y,
+                     sticky=stick)
         scrollbar = ttk.Scrollbar(self, orient=VERTICAL, cursor=cur)
         scrollbar.grid(rowspan=row_span, columnspan=col_span, row=row, column=column + 3, padx=0, pady=pad_y,
                        sticky="ns")
-        textbox = tk.Text(self, width=width, height=height, yscrollcommand=scrollbar.set)
-        textbox.grid(rowspan=row_span, columnspan=col_span, row=row, column=column, padx=pad_x, pady=pad_y,
-                     sticky=stick)
+        textbox.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=textbox.yview)
         return textbox
 

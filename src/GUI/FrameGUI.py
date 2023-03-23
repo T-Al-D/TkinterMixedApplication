@@ -23,13 +23,6 @@ class Frame:
         self.entry = None
         self.frame = frame
 
-    # add a frame on another (already existing frame)
-    @staticmethod
-    def add_label_frame_on_frame(frame, text, row, column, b_width=5, pad_x=0, pad_y=0, stick="ew"):
-        frame = ttk.LabelFrame(frame, borderwidth=b_width, text=text)
-        frame.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
-        return frame
-
     def add_label_on_frame(self, text, text_var, c_span, row, column, bg=grey, fg=black, pad_x=0, pad_y=0,
                            stick="ew", font=default_font):
         label = ttk.Label(self.frame, text=str(text), textvariable=text_var, font=font, foreground=fg, background=bg)
@@ -73,24 +66,26 @@ class Frame:
 
     def add_scroll_list_on_frame(self, width, row_span, c_span, row, column, cur=default_cur, pad_x=0, pad_y=0,
                                  stick="ew"):
-        scrollbar = ttk.Scrollbar(self.frame, orient=VERTICAL, cursor=cur)
-        scrollbar.grid(rowspan=row_span, columnspan=c_span, row=row, column=column + 1, padx=0, pady=pad_y, sticky="ns")
-        listbox = tk.Listbox(self.frame, width=width, selectmode=SINGLE, yscrollcommand=scrollbar.set)
+        listbox = tk.Listbox(self.frame, width=width, selectmode=SINGLE)
         listbox.grid(rowspan=row_span, columnspan=c_span, row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
+        scrollbar = ttk.Scrollbar(self.frame, orient=VERTICAL, cursor=cur)
+        scrollbar.grid(rowspan=row_span, columnspan=c_span, row=row, column=column + c_span + 1, padx=0, pady=pad_y,
+                       sticky="ns")
         scrollbar.config(command=listbox.yview)
+        listbox.config(yscrollcommand=scrollbar.set)
         return listbox
 
         # scrollbar is created and a textbox is bound in it
-
     def add_text_box_on_frame(self, width, height, row_span, col_span, row, column, cur=default_cur, pad_x=0, pad_y=0,
                               stick="ew"):
+        textbox = tk.Text(self.frame, width=width, height=height)
+        textbox.grid(rowspan=row_span, columnspan=col_span, row=row, column=column, padx=pad_x, pady=pad_y,
+                     sticky=stick)
         scrollbar = ttk.Scrollbar(self.frame, orient=VERTICAL, cursor=cur)
         scrollbar.grid(rowspan=row_span, columnspan=col_span, row=row, column=column + 3, padx=0, pady=pad_y,
                        sticky="ns")
-        textbox = tk.Text(self.frame, width=width, height=height, yscrollcommand=scrollbar.set)
-        textbox.grid(rowspan=row_span, columnspan=col_span, row=row, column=column, padx=pad_x, pady=pad_y,
-                     sticky=stick)
         scrollbar.config(command=textbox.yview)
+        textbox.config(yscrollcommand=scrollbar.set)
         return textbox
 
     # display an image on label
