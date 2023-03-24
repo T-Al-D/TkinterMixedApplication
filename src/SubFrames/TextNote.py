@@ -1,7 +1,7 @@
 from tkinter import filedialog, END
 
 
-class Notepad:
+class TextNote:
 
     def __init__(self, frame):
         self.frame = frame

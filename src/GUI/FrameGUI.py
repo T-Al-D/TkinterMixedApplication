@@ -25,7 +25,8 @@ class Frame:
 
     def add_label_on_frame(self, text, text_var, c_span, row, column, bg=grey, fg=black, pad_x=0, pad_y=0,
                            stick="ew", font=default_font):
-        label = ttk.Label(self.frame, text=str(text), textvariable=text_var, font=font, foreground=fg, background=bg)
+        label = ttk.Label(self.frame, text=str(text), textvariable=text_var, font=font, foreground=fg, background=bg,
+                          wraplength=200)
         label.grid(row=row, column=column, columnspan=c_span, padx=pad_x, pady=pad_y, sticky=stick)
         return label
 
