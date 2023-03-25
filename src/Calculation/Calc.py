@@ -9,7 +9,7 @@ class Calc:
         self.frame = frame
         self.calculation_label = self.frame.add_label_on_frame("Calculation", None, 1, 0, 0)
         self.explanation_label = self.frame.add_label_on_frame(
-            "Matplotlib Graph: Add SAME AMOUNT of X and Y values separated with semicolon !",
+            "Matplotlib Graph: Add SAME AMOUNT of X and Y values separated with comma ! Coordinates drawn in order.",
             None, 1, 1, 0, "white", "black", 2, 2, "ew", ("Cambria", 8, "bold"))
         self.graph_entry_x = self.frame.add_entry_on_frame(20, 2, 2, 0)
         self.graph_entry_y = self.frame.add_entry_on_frame(20, 2, 3, 0)
