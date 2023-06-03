@@ -37,7 +37,8 @@ class Frame:
         return self.entry
 
     def add_button_on_frame(self, string, com, row, column, cur=default_cur, pad_x=0, pad_y=0, stick="ew"):
-        button = ttk.Button(self.frame, text=string, command=com, cursor=cur)
+        button = ttk.Button(self.frame, text=string, cursor=cur)
+        button.config(command=com)
         button.grid(row=row, column=column, padx=pad_x, pady=pad_y, sticky=stick)
         return button
 

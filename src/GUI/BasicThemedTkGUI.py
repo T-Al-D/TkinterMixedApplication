@@ -16,7 +16,7 @@ class GUI(ThemedTk):
     # default variables/parameter
     black = "#000000"
     grey = "#8a8a8a"
-    white = "#8a8a8a"
+    white = "#f0f0f0"
     default_font = ("Cambria", 12, "bold")
     default_cur = "left_ptr"
 

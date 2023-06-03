@@ -1,4 +1,3 @@
-
 from tkinter import messagebox, END
 from matplotlib import pyplot
 
@@ -7,7 +6,7 @@ class Calc:
 
     def __init__(self, frame):
         self.frame = frame
-        self.calculation_label = self.frame.add_label_on_frame("Calculation", None, 1, 0, 0)
+        self.graph_calculation_label = self.frame.add_label_on_frame("Graph-Calculation", None, 1, 0, 0)
         self.explanation_label = self.frame.add_label_on_frame(
             "Matplotlib Graph: Add SAME AMOUNT of X and Y values separated with comma ! Coordinates drawn in order.",
             None, 1, 1, 0, "white", "black", 2, 2, "ew", ("Cambria", 8, "bold"))
@@ -30,24 +29,27 @@ class Calc:
             except Exception:
                 axis.append(value)
 
+    # show a pyplot -graph in an extra window
     def show_graph(self):
+        # get the values als strings in array
         x_axis_entry = self.graph_entry_x.get().split(",")
         y_axis_entry = self.graph_entry_y.get().split(",")
 
         if len(x_axis_entry) == len(y_axis_entry):
+            # turn string values in array into int (if possible)
             self.assign_values(x_axis_entry, self.x_axis)
             self.assign_values(y_axis_entry, self.y_axis)
 
-            print(self.x_axis)
-            print(self.y_axis)
-
+            # show figure
             figure = pyplot.figure(num="math graph", figsize=(6, 5), dpi=100)
             pyplot.plot(self.x_axis, self.y_axis)
             figure.show()
 
+            # delete the array values from entry
             self.graph_entry_x.delete(0, END)
             self.graph_entry_y.delete(0, END)
 
+            # reset arrays
             self.x_axis = []
             self.y_axis = []
         else:

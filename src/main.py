@@ -3,6 +3,7 @@ from GUI.BasicThemedTkGUI import *
 from GUI.MenuBarGUI import *
 from src.Calculation.Calc import Calc
 from src.GUI.FrameGUI import *
+from src.Scanner.Scanner import Scanner
 from src.SubFrames.DateTime import DateTime
 from src.SubFrames.TextNote import *
 from src.SubFrames.ToDoList import ToDoList
@@ -15,6 +16,7 @@ if __name__ == "__main__":
     # add items to menubar
     menu_bar = MenuGUI(gui)
     menu_bar.add_themes()
+    menu_bar.choose_color(gui)
 
     # variables
     # switch_frame parameters (for all switch_frames the same)
@@ -41,9 +43,9 @@ if __name__ == "__main__":
 
 
     # switched frames (through buttons)
-    neutral_switch_frame = Frame(gui.add_label_frame("Pick a Mini-Program", sf_row_span, sf_column_span, sf_row,
+    scanner_switch_frame = Frame(gui.add_label_frame("Scanner", sf_row_span, sf_column_span, sf_row,
                                                      sf_column, sf_border_width, sf_pad_x, sf_pad_y, sf_expand))
-    neutral_label = Frame.add_label_on_frame(neutral_switch_frame, "Neutral", None, 1, 0, 0)
+    Scanner(scanner_switch_frame)
 
     calc_switch_frame = Frame(gui.add_label_frame("Calculation", sf_row_span, sf_column_span, sf_row, sf_column,
                                                   sf_border_width, sf_pad_x, sf_pad_y, sf_expand))
@@ -51,13 +53,13 @@ if __name__ == "__main__":
 
 
     # "navigation" with buttons
-    all_switch_frames = [calc_switch_frame, neutral_switch_frame]
+    all_switch_frames = [calc_switch_frame, scanner_switch_frame]
     nav_button_frame = Frame(gui.add_label_frame("Navigation", 1, 2, 1, 2, 7, 2, 2))
     chatbot_button = Frame.add_button_on_frame(nav_button_frame, "Calculation",
                                                lambda: GUI.switch_frame(calc_switch_frame, all_switch_frames), 0, 1,
                                                nav_button_cur, 4, 4)
-    neutral_button = Frame.add_button_on_frame(nav_button_frame, "Neutral",
-                                               lambda: GUI.switch_frame(neutral_switch_frame, all_switch_frames), 0, 0,
+    neutral_button = Frame.add_button_on_frame(nav_button_frame, "Scanner",
+                                               lambda: GUI.switch_frame(scanner_switch_frame, all_switch_frames), 0, 0,
                                                nav_button_cur, 4, 4)
 
     # keep the window going
